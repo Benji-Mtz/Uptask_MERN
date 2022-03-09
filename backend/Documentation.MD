@@ -23,3 +23,6 @@
 1. npm i dotenv 
 2. process.env.MIVARIABLE
 
+## Hashing 
+1. npm i bcrypt 
+2. aplicaremos hash en el modelo 

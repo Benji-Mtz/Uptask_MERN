@@ -8,6 +8,7 @@ import usuarioRoutes from './routes/usuarioRoutes.js';
 const PORT = process.env.PORT || 4000;
 
 const app = express();
+app.use(express.json());
 dotenv.config();
 
 conectarDB();
