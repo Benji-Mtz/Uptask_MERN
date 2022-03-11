@@ -26,3 +26,6 @@
 ## Hashing 
 1. npm i bcrypt 
 2. aplicaremos hash en el modelo 
+
+## JWT
+1. npm i jsonwebtoken
