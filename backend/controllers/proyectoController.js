@@ -1,4 +1,5 @@
 import Proyecto from '../models/Proyecto.js';
+import Tarea from '../models/Tarea.js';
 
 const obtenerProyectos = async (req, res) => {
     const proyectos = await Proyecto.find().where("creador").equals(req.usuario);
@@ -38,7 +39,17 @@ const obtenerProyecto = async (req, res) => {
         return res.status(401).json({ msg: error.message });
     }
 
+    // Obtener tareas del proyecto
+    const tareas = await Tarea.find().where("proyecto").equals(proyecto._id);
+    res.json({
+        proyecto,
+        tareas,
+    });
+
+    /*
+    res.json(tareas);
     res.json(proyecto);
+    */
 };
 
 const editarProyecto = async (req, res) => {
@@ -96,7 +107,21 @@ const agregarColaborador = async (req, res) => {};
 
 const eliminarColaborador = async (req, res) => {};
 
-const obtenerTareas = async (req, res) => {};
+const obtenerTareas = async (req, res) => {
+    const { id } = req.params;
+
+    const existeProyecto = await Proyecto.findById( id );
+    if (!existeProyecto) {
+        const error = new Error("No encontrado");
+        return res.status(404).json({ msg: error.message });
+    }
+
+    // Tiene que ser el creador o colaborador del proyecto
+
+    // find trae todas las tareas del campo proyecto que sea igual al id
+    const tareas = await Tarea.find().where("proyecto").equals(id);
+    res.json(tareas)
+};
 
 export {
     obtenerProyectos,
